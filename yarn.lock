@@ -11430,6 +11430,10 @@
     "tr46" "^2.0.2"
     "webidl-conversions" "^6.1.0"
 
+"whevent@https://github.com/wheatup/whevent.git":
+  "resolved" "git+ssh://git@github.com/wheatup/whevent.git#d7e0d052500e5f0e541c95ecedea4cf1ec0f5955"
+  "version" "2.1.1"
+
 "whi18n@github:wheatup/whi18n":
   "resolved" "git+ssh://git@github.com/wheatup/whi18n.git#f11cb1872087a9436e4a89d4663b5497958aa4c1"
   "version" "1.1.0"

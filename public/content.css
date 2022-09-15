@@ -1,0 +1,32 @@
+#page .list-stream .hide-tip {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-top: solid 1px hsla(0, 0%, 100%, .2);
+}
+
+
+.theme-dark #page .list-stream .hide-tip {
+	border-top: hsla(0, 0%, 0%, .2);
+}
+
+#page .list-stream .hide-tip button {
+	background-color: transparent;
+	border: none;
+	padding: 10px;
+	color: var(--palette-primary);
+	font-size: 16px;
+	cursor: pointer;
+}
+
+.hide-completely #page .list-stream .hide-tip {
+	display: none;
+}
+
+#page .list-stream .hide-tip button:hover {
+	color: var(--palette-primary-hover);
+}
+
+#page .list-stream article.hidden {
+	display: none;
+}

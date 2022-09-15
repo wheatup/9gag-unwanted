@@ -10,7 +10,7 @@ const Checkbox = ({ checked, onChange, children, className, id, ...rest }) => {
 
 	return (
 		<label htmlFor={_id} className={"Checkbox" + (className ? ' ' + className : '')} {...rest}>
-			<input id={_id} type="checkbox" checked={checked} onChange={e => onChange(e.checked)} />
+			<input id={_id} type="checkbox" checked={checked} onChange={({ target }) => onChange(target.checked)} />
 			<span class="checkmark"></span>
 			<span class="label">{children}</span>
 		</label>

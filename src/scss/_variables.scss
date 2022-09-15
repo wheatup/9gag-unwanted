@@ -5,10 +5,10 @@
 	--clrText: #333;
 	--clrTheme: #d1b62d;
 
-	// @media (prefers-color-scheme: dark) {
-	// 	--clrBg: #333;
-	// 	--clrBg2: #555;
-	// 	--clrBg3: #222;
-	// 	--clrText: #eee;
-	// }
+	@media (prefers-color-scheme: dark) {
+		--clrBg: #333;
+		--clrBg2: #555;
+		--clrBg3: #222;
+		--clrText: #eee;
+	}
 }

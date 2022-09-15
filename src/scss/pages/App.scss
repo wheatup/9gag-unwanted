@@ -1,5 +1,5 @@
 .App {
-	padding: 1rem;
+	padding: 2rem;
 
 	h1 {
 		font-size: 2rem;
@@ -11,6 +11,10 @@
 			display: flex;
 			flex-direction: column;
 
+			&:not(:first-child) {
+				margin-top: 2rem;
+			}
+
 			.form-item-title {
 				margin-bottom: 1rem;
 				display: flex;
@@ -18,6 +22,19 @@
 
 				.Checkbox {
 					margin-left: 1rem;
+				}
+			}
+
+			.form-item-content {
+				.extra-settings {
+					display: flex;
+					margin-bottom: 1rem;
+
+					.Checkbox {
+						&:not(:first-child) {
+							margin-left: 1rem;
+						}
+					}
 				}
 			}
 		}

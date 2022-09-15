@@ -4,9 +4,12 @@ export default {
 		"texts": {
 			"title": "9GAG Unwanted",
 			"ignore-tags": "Ignore Tags",
-			"full-match": "Full Match",
+			"partial-match": "Partial Match",
+			"ignore-cases": "Ignore Cases",
 			"ignore-title": "Ignore Title",
 			"ignore-OP": "Ignore OP",
+			"misc": "Misceallaneous",
+			"hide-completely": "Hide Completely",
 		}
 	}
 }
