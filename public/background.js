@@ -1,4 +1,5 @@
 const DEFAULT_SETTINGS = {
+	active: true,
 	tags: [],
 	partialMatchTags: false,
 	ignoreCasesTags: true,
@@ -94,7 +95,7 @@ chrome.runtime.onMessage.addListener(async ({ type, data }, sender, sendResponse
 			updateSettings(data);
 			break;
 		case 'ADD_TAG':
-			updateSettings({ tags: [...settings.tags, data] });
+			updateSettings({ tags: [...new Set([...settings.tags, data])] });
 			break;
 	}
 });

@@ -1,5 +1,5 @@
 console.log('It\'s working');
-let settings;
+let settings, inited;
 
 const waitUntil = condition => new Promise(resolve => {
 	const interval = () => {
@@ -17,13 +17,16 @@ const sendMessage = (type, data) => new Promise(resolve => {
 	chrome.runtime.sendMessage({ type, data }, resolve);
 });
 
-chrome.runtime.onMessage.addListener(({ type, data }) => {
+chrome.runtime.onMessage.addListener(({ type, data }, sender) => {
 	switch (type) {
 		case 'INIT':
+			if (inited) return;
+			inited = true;
 			settings = data;
 			init();
 			break;
 		case 'SETTINGS_UPDATED':
+			if (JSON.stringify(data) === JSON.stringify(settings)) return;
 			settings = data;
 			update();
 			break;
@@ -43,8 +46,10 @@ const processTag = $tag => {
 }
 
 const processPost = $post => {
-	let { tags, partialMatchTags, ignoreCasesTags, titles, ignoreCasesTitles, partialMatchTitles, authors, hideCompletely } = settings;
+	let { tags, active, partialMatchTags, ignoreCasesTags, titles, ignoreCasesTitles, partialMatchTitles, authors, hideCompletely } = settings;
 	$post.classList.remove('hidden');
+
+	if (!active) return;
 
 	const $tags = [...$post.querySelectorAll('.post-tag a')];
 
@@ -67,23 +72,26 @@ const processPost = $post => {
 	}
 
 	if (!match && titles.length) {
-		let _title = $post.querySelector('header h1').innerText;
-		if (ignoreCasesTitles) {
-			_title = _title.toLowerCase();
-			titles = titles.map(title => title.toLowerCase());
-		}
+		const $title = $post.querySelector('header h1');
+		if ($title) {
+			let _title = $title.innerText
+			if (ignoreCasesTitles) {
+				_title = _title.toLowerCase();
+				titles = titles.map(title => title.toLowerCase());
+			}
 
-		if (partialMatchTitles) {
-			match = titles.some(title => _title.includes(title));
-		} else {
-			match = titles.includes(_title);
+			if (partialMatchTitles) {
+				match = titles.some(title => _title.includes(title));
+			} else {
+				match = titles.includes(_title);
+			}
 		}
 	}
 
-	if (!match && authors.length) {
-		let _author = $post.querySelector('.post-header.ui-post-creator__author').innerText;
-		match = authors.some(author => author.name === _author);
-	}
+	// if (!match && authors.length) {
+	// 	let _author = $post.querySelector('.post-header.ui-post-creator__author').innerText;
+	// 	match = authors.some(author => author.name === _author);
+	// }
 
 	if (match) {
 		$post.classList.add('hidden');

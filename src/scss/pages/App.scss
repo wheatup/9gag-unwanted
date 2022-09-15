@@ -1,5 +1,6 @@
 .App {
 	padding: 2rem;
+	padding-bottom: 6rem;
 
 	h1 {
 		font-size: 2rem;
@@ -8,6 +9,13 @@
 	}
 
 	.form-area {
+		&.inactive {
+			.form-item:not(:first-child) {
+				opacity: 0.3;
+				pointer-events: none;
+			}
+		}
+
 		.form-item {
 			display: flex;
 			flex-direction: column;

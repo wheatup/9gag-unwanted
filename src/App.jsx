@@ -6,6 +6,7 @@ import Checkbox from './components/Checkbox';
 import { sendMessage } from './message';
 
 function App({ settings }) {
+	const [active, setActive] = useState(settings.active);
 	const [tags, setTags] = useState(settings.tags);
 	const [partialMatchTags, setPartialMatchTags] = useState(settings.partialMatchTags);
 	const [ignoreCasesTags, setIgnoreCasesTags] = useState(settings.ignoreCasesTags);
@@ -23,6 +24,7 @@ function App({ settings }) {
 	useEffect(() => {
 		if (needUpdate) {
 			const data = {
+				active,
 				tags,
 				partialMatchTags,
 				ignoreCasesTags,
@@ -35,7 +37,7 @@ function App({ settings }) {
 			sendMessage('UPDATE', data);
 			setNeedUpdate(false);
 		}
-	}, [needUpdate, tags, partialMatchTags, ignoreCasesTags, titles, partialMatchTitles, ignoreCasesTitles, authors, hideCompletely]);
+	}, [needUpdate, active, tags, partialMatchTags, ignoreCasesTags, titles, partialMatchTitles, ignoreCasesTitles, authors, hideCompletely]);
 
 	const updateSetting = useCallback((event) => (...args) => {
 		event(...args);
@@ -45,7 +47,18 @@ function App({ settings }) {
 	return (
 		<div className="App">
 			<h1>{$`title`}</h1>
-			<div className="form-area">
+			<div className={"form-area" + (active ? '' : ' inactive')}>
+
+				<div className="form-item">
+					<div className="form-item-title">
+						<label htmlFor="partial-match-ignore-tags">{$`activity`}</label>
+					</div>
+					<div className="form-item-content">
+						<div className="extra-settings">
+							<Checkbox onChange={updateSetting(setActive)} checked={active}>{$`active`}</Checkbox>
+						</div>
+					</div>
+				</div>
 
 				<div className="form-item">
 					<div className="form-item-title">

@@ -9,6 +9,7 @@ import { sendMessage } from './message';
 import whevent from 'whevent';
 
 const DEFAULT_SETTINGS = {
+	active: true,
 	tags: [],
 	partialMatchTags: false,
 	ignoreCasesTags: true,
