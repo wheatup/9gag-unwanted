@@ -16,21 +16,30 @@ const sendMessage = (type, data) => new Promise(resolve => {
 	chrome.runtime.sendMessage({ type, data }, resolve);
 });
 
-chrome.runtime.onMessage.addListener(({ type, data }, sender) => {
+chrome.runtime.onMessage.addListener(({ type, data }) => {
+	console.log({ type, data });
 	switch (type) {
 		case 'INIT':
 			if (inited) return;
+			if (data) {
+				settings = data;
+			}
 			inited = true;
-			settings = data;
 			init();
 			break;
 		case 'SETTINGS_UPDATED':
 			if (JSON.stringify(data) === JSON.stringify(settings)) return;
-			settings = data;
+			if (data) {
+				settings = data;
+			}
 			update();
 			break;
 		case 'TAB_UPDATED':
-			init();
+			if (data) {
+				settings = data;
+			}
+			processHeaderTags();
+			update();
 			break;
 	}
 });
@@ -110,10 +119,18 @@ const processPost = $post => {
 	}
 }
 
+const processHeaderTags = async () => {
+	(await waitUntil(() =>{
+		const $tags = [...document.querySelectorAll('#container .main-wrap > .post-tag a')];
+		console.log($tags);
+
+		return ($tags.length > 0) && $tags;
+	})).forEach(processTag);
+}
+
 const update = async () => {
 	const $list = await waitUntil(() => document.querySelector('#container #page .main-wrap > section'));
 	[...$list.querySelectorAll('.hide-tip')].forEach($tip => $tip.remove());
-	[...document.querySelectorAll('.post-tag a .close')].forEach($close => $close.remove());
 	[...$list.querySelectorAll('.list-stream > article[id]')].forEach($post => processPost($post));
 
 	let { hideCompletely } = settings;
@@ -127,8 +144,7 @@ const update = async () => {
 
 const init = async () => {
 	await update();
-
-	[...document.querySelectorAll('#container .main-wrap > .post-tag a')].forEach(processTag);
+	processHeaderTags();
 
 	const $list = await waitUntil(() => document.querySelector('#container #page .main-wrap > section'));
 	new MutationObserver(mutationList => {

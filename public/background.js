@@ -66,7 +66,7 @@ chrome.runtime.onInstalled.addListener(() => {
 
 	chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
 		if (changeInfo.status === 'complete') {
-			sendMessage('TAB_UPDATED', null, tabId);
+			sendMessage('TAB_UPDATED', settings, tabId);
 		}
 	})
 });
