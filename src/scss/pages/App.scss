@@ -1,0 +1,25 @@
+.App {
+	padding: 1rem;
+
+	h1 {
+		font-size: 2rem;
+		margin-bottom: 2rem;
+	}
+
+	.form-area {
+		.form-item {
+			display: flex;
+			flex-direction: column;
+
+			.form-item-title {
+				margin-bottom: 1rem;
+				display: flex;
+				align-items: center;
+
+				.Checkbox {
+					margin-left: 1rem;
+				}
+			}
+		}
+	}
+}

@@ -1,5 +1,8 @@
-.App {
-	h1 {
-		color: red;
-	}
-}
+@import "./variables";
+@import "./base";
+@import "./common";
+
+@import "./pages/App";
+
+@import "./components/TagsInput";
+@import "./components/Checkbox";

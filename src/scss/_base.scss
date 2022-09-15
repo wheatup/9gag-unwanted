@@ -1,0 +1,21 @@
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	font-family: inherit;
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+	font-size: 62.5%;
+
+	body {
+		font-size: 1.6rem;
+		background-color: var(--clrBg);
+		color: var(--clrText);
+		overflow-x: hidden;
+		min-width: 380px
+	}
+}

@@ -1,0 +1,24 @@
+[class^='icon-'] {
+	&:is(i) {
+		cursor: pointer;
+		transition: color 0.2s;
+
+		&:hover {
+			color: var(--clrTheme);
+		}
+	}
+}
+
+input:is(:not([type]), [type='text'], [type='password']),
+textarea {
+	border: none;
+	outline: none;
+	font-size: inherit;
+	padding: 4px 8px;
+	color: var(--clrText);
+	background-color: var(--clrBg3);
+}
+
+input[type="checkbox"] {
+	border: none;
+}

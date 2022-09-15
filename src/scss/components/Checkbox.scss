@@ -1,0 +1,32 @@
+.Checkbox {
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+
+	input {
+		display: none;
+
+		&:checked + .checkmark {
+			color: var(--clrText);
+		}
+	}
+
+	.checkmark {
+		color: transparent;
+		background-color: var(--clrBg3);
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 1.2em;
+		height: 1.2em;
+		margin-right: .2em;
+		&::before {
+			font-family: 'icomoon' !important;
+			content: '\ea10';
+		}
+	}
+
+	.label {
+		cursor: pointer;
+	}
+}
