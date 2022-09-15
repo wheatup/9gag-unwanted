@@ -15,7 +15,6 @@ export const sendMessage = (type, data) => new Promise(resolve => {
 
 if (typeof chrome !== 'undefined' && chrome?.runtime?.onMessage?.addListener) {
 	chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-		console.log({ request, sender, sendResponse });
 		whevent.emit(request.type, request.data);
 	});
 }

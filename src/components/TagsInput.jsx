@@ -6,8 +6,6 @@ const TagsInput = ({ onChange, value, className, onAdd, filter, ...rest }) => {
 
 	useEffect(() => {
 		if (JSON.stringify(value) !== JSON.stringify(tags)) {
-			console.log(JSON.stringify(value));
-			console.log(JSON.stringify(tags));
 			onChange(tags);
 		}
 	}, [tags, value]);

@@ -1,4 +1,3 @@
-console.log('It\'s working');
 let settings, inited;
 
 const waitUntil = condition => new Promise(resolve => {
@@ -29,6 +28,9 @@ chrome.runtime.onMessage.addListener(({ type, data }, sender) => {
 			if (JSON.stringify(data) === JSON.stringify(settings)) return;
 			settings = data;
 			update();
+			break;
+		case 'TAB_UPDATED':
+			init();
 			break;
 	}
 });

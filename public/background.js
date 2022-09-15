@@ -29,19 +29,15 @@ const waitUntil = condition => new Promise(resolve => {
 
 const updateSettings = (update, overwrite) => {
 	settings = overwrite ? update : { ...settings, ...update };
-	chrome.storage.sync.set({ _9gag_settings: settings }, () => {
-		console.log('Settings update ', settings);
-	});
+	chrome.storage.sync.set({ _9gag_settings: settings });
 	sendMessage('SETTINGS_UPDATED', settings);
 };
 
 chrome.storage.sync.get(['_9gag_settings'], ({ _9gag_settings }) => {
-	console.log('Settings fetched', _9gag_settings);
 	if (!_9gag_settings || reset) {
 		updateSettings(DEFAULT_SETTINGS, true);
 	} else if (Object.entries(DEFAULT_SETTINGS).some(([key, value]) => typeof _9gag_settings[key] !== typeof value)) {
 		const updateKeys = Object.keys(DEFAULT_SETTINGS).filter(key => typeof _9gag_settings[key] !== typeof DEFAULT_SETTINGS[key]);
-		console.log('missing keys', updateKeys);
 		const updateObject = Object.fromEntries(updateKeys.map(key => [key, DEFAULT_SETTINGS[key]]));
 		updateSettings({ ..._9gag_settings, ...updateObject });
 	} else {
@@ -67,6 +63,12 @@ chrome.runtime.onInstalled.addListener(() => {
 			]);
 		});
 	}
+
+	chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+		if (changeInfo.status === 'complete') {
+			sendMessage('TAB_UPDATED', null, tabId);
+		}
+	})
 });
 
 const sendMessage = (type, data, tabId) => {
@@ -99,3 +101,5 @@ chrome.runtime.onMessage.addListener(async ({ type, data }, sender, sendResponse
 			break;
 	}
 });
+
+
