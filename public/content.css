@@ -29,8 +29,9 @@
 
 #page .list-stream article {
 	transition: all 0.5s;
-	max-height: 1000px;
+	max-height: 1200px;
 	overflow: hidden;
+	overflow-y: auto;
 }
 
 #page .list-stream article.hidden {

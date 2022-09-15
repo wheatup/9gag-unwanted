@@ -59,6 +59,21 @@ const processPost = $post => {
 	let { tags, active, partialMatchTags, ignoreCasesTags, titles, ignoreCasesTitles, partialMatchTitles, authors, hideCompletely } = settings;
 	$post.classList.remove('hidden');
 
+	if(!$post.getAttribute('data-processed')) {
+		let hasChildren = !!$post.children.length;
+		$post.setAttribute('data-processed', true);
+		new MutationObserver(mutationList => {
+			if(!hasChildren && $post.children.length) {
+				console.log('children added');
+				if($post.previousSibling && $post.previousSibling.classList && $post.previousSibling.classList.contains('hide-tip')) {
+					$post.previousSibling.remove();
+				}
+				processPost($post);
+			}
+			hasChildren = !!$post.children.length;
+		}).observe($post, { attributes: false, childList: true, subtree: false })
+	}
+
 	if (!active) return;
 
 	const $tags = [...$post.querySelectorAll('.post-tag a')];
@@ -151,3 +166,8 @@ const init = async () => {
 };
 
 sendMessage('INIT');
+
+setInterval(() => {
+	const tags = [...document.querySelectorAll('.post-tag a')];
+	tags.filter(tag => !tag.querySelector('.close')).forEach(processTag);
+}, 1000)
