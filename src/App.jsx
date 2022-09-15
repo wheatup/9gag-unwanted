@@ -53,8 +53,8 @@ function App({ settings }) {
 					</div>
 					<div className="form-item-content">
 						<div className="extra-settings">
-							<Checkbox onChange={updateSetting(setPartialMatchTags)} checked={partialMatchTags}>{$`partial-match`}</Checkbox>
-							<Checkbox onChange={updateSetting(setIgnoreCasesTags)} checked={ignoreCasesTags}>{$`ignore-cases`}</Checkbox>
+							<Checkbox title={$`partial-match.tip`} onChange={updateSetting(setPartialMatchTags)} checked={partialMatchTags}>{$`partial-match`}</Checkbox>
+							<Checkbox title={$`ignore-cases.tip`} onChange={updateSetting(setIgnoreCasesTags)} checked={ignoreCasesTags}>{$`ignore-cases`}</Checkbox>
 						</div>
 						<TagsInput id="ignore-tags" onChange={updateSetting(setTags)} value={tags} />
 					</div>
@@ -66,8 +66,8 @@ function App({ settings }) {
 					</div>
 					<div className="form-item-content">
 						<div className="extra-settings">
-							<Checkbox onChange={updateSetting(setPartialMatchTitles)} checked={partialMatchTitles}>{$`partial-match`}</Checkbox>
-							<Checkbox onChange={updateSetting(setIgnoreCasesTitles)} checked={ignoreCasesTitles}>{$`ignore-cases`}</Checkbox>
+							<Checkbox title={$`partial-match.tip`} onChange={updateSetting(setPartialMatchTitles)} checked={partialMatchTitles}>{$`partial-match`}</Checkbox>
+							<Checkbox title={$`ignore-cases.tip`} onChange={updateSetting(setIgnoreCasesTitles)} checked={ignoreCasesTitles}>{$`ignore-cases`}</Checkbox>
 						</div>
 						<TagsInput id="ignore-title" onChange={updateSetting(setTitles)} value={titles} />
 					</div>
@@ -101,7 +101,7 @@ function App({ settings }) {
 						<label htmlFor="partial-match-ignore-tags">{$`misc`}</label>
 					</div>
 					<div className="form-item-content">
-						<Checkbox onChange={updateSetting(setHideCompletely)} checked={hideCompletely}>{$`hide-completely`}</Checkbox>
+						<Checkbox title={$`hide-completely.tip`} onChange={updateSetting(setHideCompletely)} checked={hideCompletely}>{$`hide-completely`}</Checkbox>
 					</div>
 				</div>
 
