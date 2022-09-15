@@ -17,7 +17,6 @@ const sendMessage = (type, data) => new Promise(resolve => {
 });
 
 chrome.runtime.onMessage.addListener(({ type, data }) => {
-	console.log({ type, data });
 	switch (type) {
 		case 'INIT':
 			if (inited) return;
@@ -122,8 +121,6 @@ const processPost = $post => {
 const processHeaderTags = async () => {
 	(await waitUntil(() =>{
 		const $tags = [...document.querySelectorAll('#container .main-wrap > .post-tag a')];
-		console.log($tags);
-
 		return ($tags.length > 0) && $tags;
 	})).forEach(processTag);
 }
