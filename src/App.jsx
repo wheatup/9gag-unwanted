@@ -6,8 +6,6 @@ import Checkbox from './components/Checkbox';
 import { sendMessage } from './message';
 
 function App({ settings }) {
-	console.log(settings);
-
 	const [tags, setTags] = useState(settings.tags);
 	const [partialMatchTags, setPartialMatchTags] = useState(settings.partialMatchTags);
 	const [ignoreCasesTags, setIgnoreCasesTags] = useState(settings.ignoreCasesTags);
@@ -15,6 +13,8 @@ function App({ settings }) {
 	const [titles, setTitles] = useState(settings.titles);
 	const [partialMatchTitles, setPartialMatchTitles] = useState(settings.partialMatchTitles);
 	const [ignoreCasesTitles, setIgnoreCasesTitles] = useState(settings.ignoreCasesTitles);
+
+	const [authors, setAuthors] = useState(settings.authors);
 
 	const [hideCompletely, setHideCompletely] = useState(settings.hideCompletely);
 
@@ -29,15 +29,15 @@ function App({ settings }) {
 				titles,
 				partialMatchTitles,
 				ignoreCasesTitles,
-				hideCompletely
+				authors,
+				hideCompletely,
 			};
 			sendMessage('UPDATE', data);
 			setNeedUpdate(false);
 		}
-	}, [needUpdate, tags, partialMatchTags, ignoreCasesTags, titles, partialMatchTitles, ignoreCasesTitles, hideCompletely]);
+	}, [needUpdate, tags, partialMatchTags, ignoreCasesTags, titles, partialMatchTitles, ignoreCasesTitles, authors, hideCompletely]);
 
 	const updateSetting = useCallback((event) => (...args) => {
-		console.log(...args);
 		event(...args);
 		setNeedUpdate(true);
 	}, []);
@@ -52,7 +52,7 @@ function App({ settings }) {
 						<label htmlFor="partial-match-ignore-tags">{$`ignore-tags`}</label>
 					</div>
 					<div className="form-item-content">
-						<div class="extra-settings">
+						<div className="extra-settings">
 							<Checkbox onChange={updateSetting(setPartialMatchTags)} checked={partialMatchTags}>{$`partial-match`}</Checkbox>
 							<Checkbox onChange={updateSetting(setIgnoreCasesTags)} checked={ignoreCasesTags}>{$`ignore-cases`}</Checkbox>
 						</div>
@@ -62,16 +62,39 @@ function App({ settings }) {
 
 				<div className="form-item">
 					<div className="form-item-title">
-						<label htmlFor="partial-match-ignore-tags">{$`ignore-title`}</label>
+						<label htmlFor="partial-match-ignore-tags">{$`ignore-titles`}</label>
 					</div>
 					<div className="form-item-content">
-						<div class="extra-settings">
+						<div className="extra-settings">
 							<Checkbox onChange={updateSetting(setPartialMatchTitles)} checked={partialMatchTitles}>{$`partial-match`}</Checkbox>
 							<Checkbox onChange={updateSetting(setIgnoreCasesTitles)} checked={ignoreCasesTitles}>{$`ignore-cases`}</Checkbox>
 						</div>
 						<TagsInput id="ignore-title" onChange={updateSetting(setTitles)} value={titles} />
 					</div>
 				</div>
+
+				{/* <div className="form-item">
+					<div className="form-item-title">
+						<label htmlFor="partial-match-ignore-tags">{$`ignore-OPs`}</label>
+					</div>
+					<div className="form-item-content">
+						<TagsInput
+							id="ignore-ops"
+							value={authors.map(author => ({
+								...author, render: () => (
+									<span key={author.name} className="author">
+										{author.avatar ? <img src={author.avatar} alt={author.name} /> : <i className="icon-user"></i>}
+										<span>{author.name}</span>
+									</span>
+								)
+							}))}
+							onAdd={name => ({ name })}
+							onChange={updateSetting(setAuthors)} filter={(a, b) => {
+								return a.name !== b.name;
+							}}
+						/>
+					</div>
+				</div> */}
 
 				<div className="form-item">
 					<div className="form-item-title">

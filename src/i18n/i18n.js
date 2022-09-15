@@ -3,11 +3,11 @@ export default {
 		"version": 1,
 		"texts": {
 			"title": "9GAG Unwanted",
-			"ignore-tags": "Ignore Tags",
+			"ignore-tags": "Blocked Tags",
 			"partial-match": "Partial Match",
 			"ignore-cases": "Ignore Cases",
-			"ignore-title": "Ignore Title",
-			"ignore-OP": "Ignore OP",
+			"ignore-titles": "Blocked Titles",
+			"ignore-OPs": "Blocked OPs",
 			"misc": "Misceallaneous",
 			"hide-completely": "Hide Completely",
 		}

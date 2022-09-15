@@ -6,6 +6,9 @@ const DEFAULT_SETTINGS = {
 	titles: [],
 	partialMatchTitles: true,
 	ignoreCasesTitles: true,
+
+	authors: [],
+
 	hideCompletely: false
 };
 
@@ -81,13 +84,17 @@ const sendMessage = (type, data, tabId) => {
 }
 
 
-chrome.runtime.onMessage.addListener(({ type, data }, sender, sendResponse) => {
+chrome.runtime.onMessage.addListener(async ({ type, data }, sender, sendResponse) => {
 	switch (type) {
 		case 'INIT':
-			sendResponse(settings);
+			await waitUntil(() => settings);
+			sendMessage('INIT', settings);
 			break;
 		case 'UPDATE':
 			updateSettings(data);
+			break;
+		case 'ADD_TAG':
+			updateSettings({ tags: [...settings.tags, data] });
 			break;
 	}
 });
