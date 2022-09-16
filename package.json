@@ -9,12 +9,12 @@
 		"react": "^17.0.2",
 		"react-dom": "^17.0.2",
 		"react-scripts": "4.0.3",
-		"whevent": "github:wheatup/whevent",
-		"whi18n": "github:wheatup/whi18n"
+		"whevent": "git+https://github.com/wheatup/whevent.git",
+		"whi18n": "git+https://github.com/wheatup/whi18n.git"
 	},
 	"scripts": {
 		"start": "react-scripts start",
-		"build": "react-scripts build",
+		"build": "node build",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject"
 	},
@@ -37,6 +37,10 @@
 		]
 	},
 	"devDependencies": {
+		"@jdcrensh/react-scripts": "^4.0.4-0",
+		"gulp": "^4.0.2",
+		"react-scripts-plugin-no-minify": "^0.4.0",
+		"rewire": "^6.0.0",
 		"sass": "^1.54.9"
 	}
 }
