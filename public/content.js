@@ -3,7 +3,7 @@ let settings, inited;
 const waitUntil = condition => new Promise(resolve => {
 	const interval = () => {
 		const result = condition();
-		if (typeof result !== 'undefined' && false !== result) {
+		if (![undefined, null, false].includes(result)) {
 			return resolve(result);
 		}
 		requestAnimationFrame(interval);
@@ -64,7 +64,6 @@ const processPost = $post => {
 		$post.setAttribute('data-processed', true);
 		new MutationObserver(mutationList => {
 			if(!hasChildren && $post.children.length) {
-				console.log('children added');
 				if($post.previousSibling && $post.previousSibling.classList && $post.previousSibling.classList.contains('hide-tip')) {
 					$post.previousSibling.remove();
 				}

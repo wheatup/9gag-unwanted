@@ -1,6 +1,6 @@
 .App {
 	padding: 2rem;
-	padding-bottom: 6rem;
+	padding-bottom: 4rem;
 
 	h1 {
 		font-size: 2rem;
@@ -63,6 +63,23 @@
 						}
 					}
 				}
+			}
+		}
+	}
+
+	footer {
+		margin-top: 2rem;
+		border-top: solid 1px var(--clrBg2);
+		color: var(--clrText);
+		opacity: 0.5;
+		font-size: 1.2rem;
+		padding-top: 1rem;
+
+		a {
+			color: inherit;
+
+			&:hover {
+				color: var(--clrTheme) !important;
 			}
 		}
 	}

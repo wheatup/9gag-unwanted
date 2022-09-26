@@ -119,6 +119,10 @@ function App({ settings }) {
 				</div>
 
 			</div>
+
+			<footer>
+				&copy; <a target="_blank" href="https://github.com/wheatup/9gag-unwanted">GitHub</a>
+			</footer>
 		</div>
 	);
 }
