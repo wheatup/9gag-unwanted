@@ -87,19 +87,22 @@ const sendMessage = (type, data, tabId) => {
 }
 
 
-chrome.runtime.onMessage.addListener(async ({ type, data }, sender, sendResponse) => {
-	switch (type) {
-		case 'INIT':
-			await waitUntil(() => settings);
-			sendMessage('INIT', settings);
-			break;
-		case 'UPDATE':
-			updateSettings(data);
-			break;
-		case 'ADD_TAG':
-			updateSettings({ tags: [...new Set([...settings.tags, data])] });
-			break;
-	}
+chrome.runtime.onMessage.addListener(({ type, data }, sender, sendResponse) => {
+	(async () => {
+		switch (type) {
+			case 'INIT':
+				await waitUntil(() => settings);
+				sendMessage('INIT', settings);
+				break;
+			case 'UPDATE':
+				updateSettings(data);
+				break;
+			case 'ADD_TAG':
+				updateSettings({ tags: [...new Set([...settings.tags, data])] });
+				break;
+		}
+	})()
+	return true;
 });
 
 

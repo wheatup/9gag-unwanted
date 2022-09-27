@@ -12,6 +12,8 @@ const waitUntil = condition => new Promise(resolve => {
 	interval();
 });
 
+
+
 const sendMessage = (type, data) => new Promise(resolve => {
 	chrome.runtime.sendMessage({ type, data }, resolve);
 });
@@ -56,15 +58,18 @@ const processTag = $tag => {
 }
 
 const processPost = $post => {
+	if ($post.getAttribute('data-unwanted-checked')) return;
+	$post.setAttribute('data-unwanted-checked', true);
+
 	let { tags, active, partialMatchTags, ignoreCasesTags, titles, ignoreCasesTitles, partialMatchTitles, authors, hideCompletely } = settings;
 	$post.classList.remove('hidden');
 
-	if(!$post.getAttribute('data-processed')) {
+	if (!$post.getAttribute('data-processed')) {
 		let hasChildren = !!$post.children.length;
 		$post.setAttribute('data-processed', true);
 		new MutationObserver(mutationList => {
-			if(!hasChildren && $post.children.length) {
-				if($post.previousSibling && $post.previousSibling.classList && $post.previousSibling.classList.contains('hide-tip')) {
+			if (!hasChildren && $post.children.length) {
+				if ($post.previousSibling && $post.previousSibling.classList && $post.previousSibling.classList.contains('hide-tip')) {
 					$post.previousSibling.remove();
 				}
 				processPost($post);
@@ -133,16 +138,14 @@ const processPost = $post => {
 }
 
 const processHeaderTags = async () => {
-	(await waitUntil(() =>{
+	(await waitUntil(() => {
 		const $tags = [...document.querySelectorAll('#container .main-wrap > .post-tag a')];
 		return ($tags.length > 0) && $tags;
 	})).forEach(processTag);
 }
 
 const update = async () => {
-	const $list = await waitUntil(() => document.querySelector('#container #page .main-wrap > section'));
-	[...$list.querySelectorAll('.hide-tip')].forEach($tip => $tip.remove());
-	[...$list.querySelectorAll('.list-stream > article[id]')].forEach($post => processPost($post));
+	[...document.querySelectorAll('[data-unwanted-checked]')].forEach($tag => $tag.removeAttribute('data-unwanted-checked'));
 
 	let { hideCompletely } = settings;
 	if (hideCompletely) {
@@ -150,6 +153,10 @@ const update = async () => {
 	} else {
 		document.body.classList.remove('hide-completely');
 	}
+
+	const $list = await waitUntil(() => document.querySelector('#container #page .main-wrap > section'));
+	[...$list.querySelectorAll('.hide-tip')].forEach($tip => $tip.remove());
+	[...$list.querySelectorAll('.list-stream > article[id]')].forEach($post => processPost($post));
 }
 
 
@@ -157,11 +164,11 @@ const init = async () => {
 	await update();
 	processHeaderTags();
 
-	const $list = await waitUntil(() => document.querySelector('#container #page .main-wrap > section'));
-	new MutationObserver(mutationList => {
-		const newPosts = [...mutationList].flatMap(({ addedNodes }) => [...addedNodes].flatMap(node => [...node.querySelectorAll('article[id]')]));
-		newPosts.forEach($post => processPost($post));
-	}).observe($list, { attributes: false, childList: true, subtree: false })
+	const check = () => {
+		[...document.querySelectorAll('article[id]:not([data-unwanted-checked="true"])')].forEach(processPost);
+		requestAnimationFrame(check);
+	}
+	check();
 };
 
 sendMessage('INIT');
