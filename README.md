@@ -13,3 +13,7 @@ Install on [Chrome Web Store](https://chrome.google.com/webstore/detail/9gag-unw
 * 0.1.5
 
 > * Fixed a problem that the filter doesn't work when opening a new 9GAG tab.
+
+* 0.1.6
+
+> * Fixed a problem that causes the extension stop working with the new 9GAG layout.

@@ -139,7 +139,7 @@ const processPost = $post => {
 
 const processHeaderTags = async () => {
 	(await waitUntil(() => {
-		const $tags = [...document.querySelectorAll('#container .main-wrap > .post-tag a')];
+		const $tags = [...document.querySelectorAll('#container :is(.main-wrap, #main) > .post-tag a')];
 		return ($tags.length > 0) && $tags;
 	})).forEach(processTag);
 }
@@ -154,7 +154,7 @@ const update = async () => {
 		document.body.classList.remove('hide-completely');
 	}
 
-	const $list = await waitUntil(() => document.querySelector('#container #page .main-wrap > section'));
+	const $list = await waitUntil(() => document.querySelector('#container #page :is(.main-wrap, #main) > section'));
 	[...$list.querySelectorAll('.hide-tip')].forEach($tip => $tip.remove());
 	[...$list.querySelectorAll('.list-stream > article[id]')].forEach($post => processPost($post));
 }
