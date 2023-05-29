@@ -2,7 +2,7 @@
 	"manifest_version": 3,
 	"name": "9GAG Unwanted",
 	"short_name": "9GAG Unwanted",
-	"version": "0.1.6",
+	"version": "0.2.0",
 	"description": "Filter unwanted posts from 9GAG",
 	"background": {
 		"service_worker": "./background.js"

@@ -29,7 +29,7 @@ chrome.runtime.onMessage.addListener(({ type, data }) => {
 			init();
 			break;
 		case 'SETTINGS_UPDATED':
-			if (JSON.stringify(data) === JSON.stringify(settings)) return;
+			// if (JSON.stringify(data) === JSON.stringify(settings)) return;
 			if (data) {
 				settings = data;
 			}
@@ -64,6 +64,8 @@ const processPost = $post => {
 	let { tags, active, partialMatchTags, ignoreCasesTags, titles, ignoreCasesTitles, partialMatchTitles, authors, hideCompletely } = settings;
 	$post.classList.remove('hidden');
 
+	$post.style.setProperty('--height', ($post.scrollHeight || 1200) + 'px');
+
 	if (!$post.getAttribute('data-processed')) {
 		let hasChildren = !!$post.children.length;
 		$post.setAttribute('data-processed', true);
@@ -80,7 +82,7 @@ const processPost = $post => {
 
 	if (!active) return;
 
-	const $tags = [...$post.querySelectorAll('.post-tag a')];
+	const $tags = [...$post.querySelectorAll('.post-tags a')];
 
 	$tags.forEach(processTag);
 
@@ -139,7 +141,7 @@ const processPost = $post => {
 
 const processHeaderTags = async () => {
 	(await waitUntil(() => {
-		const $tags = [...document.querySelectorAll('#container :is(.main-wrap, #main) > .post-tag a')];
+		const $tags = [...document.querySelectorAll('#container :is(.main-wrap, #main) > .post-list-tag a')];
 		return ($tags.length > 0) && $tags;
 	})).forEach(processTag);
 }
