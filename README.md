@@ -21,3 +21,8 @@ Install on [Chrome Web Store](https://chrome.google.com/webstore/detail/9gag-unw
 * 0.2.0
 
 > * Fixed a problem that causes the extension stop working with the new 9GAG layout.
+
+
+* 0.2.1
+
+> * Added a feature that you could open comments in a drawer instead of opening a new page.
