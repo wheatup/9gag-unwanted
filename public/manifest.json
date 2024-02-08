@@ -2,7 +2,7 @@
 	"manifest_version": 3,
 	"name": "9GAG Unwanted",
 	"short_name": "9GAG Unwanted",
-	"version": "0.2.0",
+	"version": "0.2.1",
 	"description": "Filter unwanted posts from 9GAG",
 	"background": {
 		"service_worker": "./background.js"
@@ -10,7 +10,7 @@
 	"permissions": ["storage"],
 	"host_permissions": ["*://*.9gag.com/*"],
 	"author": "wheatup",
-	"homepage_url": "https://github.com/wheatup/",
+	"homepage_url": "https://chromewebstore.google.com/detail/9gag-unwanted/lnldkhdgiphhdgdfmjgpcgpihggimppd",
 	"action": {
 		"default_popup": "popup.html",
 		"default_title": "9GAG Unwanted",

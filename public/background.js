@@ -10,7 +10,8 @@ const DEFAULT_SETTINGS = {
 
 	authors: [],
 
-	hideCompletely: false
+	hideCompletely: false,
+  sideComments: false
 };
 
 let settings, reset = false;

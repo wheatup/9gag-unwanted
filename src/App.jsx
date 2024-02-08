@@ -18,6 +18,7 @@ function App({ settings }) {
 	const [authors, setAuthors] = useState(settings.authors);
 
 	const [hideCompletely, setHideCompletely] = useState(settings.hideCompletely);
+	const [sideComments, setSideComments] = useState(settings.sideComments);
 
 	const [needUpdate, setNeedUpdate] = useState(false);
 
@@ -33,11 +34,12 @@ function App({ settings }) {
 				ignoreCasesTitles,
 				authors,
 				hideCompletely,
+        sideComments
 			};
 			sendMessage('UPDATE', data);
 			setNeedUpdate(false);
 		}
-	}, [needUpdate, active, tags, partialMatchTags, ignoreCasesTags, titles, partialMatchTitles, ignoreCasesTitles, authors, hideCompletely]);
+	}, [needUpdate, active, tags, partialMatchTags, ignoreCasesTags, titles, partialMatchTitles, ignoreCasesTitles, authors, hideCompletely, sideComments]);
 
 	const updateSetting = useCallback((event) => (...args) => {
 		event(...args);
@@ -115,6 +117,9 @@ function App({ settings }) {
 					</div>
 					<div className="form-item-content">
 						<Checkbox title={$`hide-completely.tip`} onChange={updateSetting(setHideCompletely)} checked={hideCompletely}>{$`hide-completely`}</Checkbox>
+					</div>
+          <div className="form-item-content">
+						<Checkbox title={$`side-comments.tip`} onChange={updateSetting(setSideComments)} checked={sideComments}>{$`side-comments`}</Checkbox>
 					</div>
 				</div>
 

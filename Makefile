@@ -16,7 +16,7 @@ build:
 	@echo 'Preparing new extension build..'
 	@export INLINE_RUNTIME_CHUNK=false; \
 	export GENERATE_SOURCEMAP=false; \
-	yarn build
+	npm run build
 	@mkdir -p dist
 	@cp -r build/* dist
 	@echo 'Renaming files...'

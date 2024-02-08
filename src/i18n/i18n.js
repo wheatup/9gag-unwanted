@@ -15,6 +15,8 @@ export default {
 			"misc": "Miscellaneous",
 			"hide-completely": "Hide Completely",
 			"hide-completely.tip": "When checked, the posts will be hidden completely, otherwise, a tip will be shown to let you know the post is hidden.",
+			"side-comments": "Side Comments",
+			"side-comments.tip": "When checked, clicking the comments will open in a drawer instead of opening a new tab.",
 		}
 	}
 }

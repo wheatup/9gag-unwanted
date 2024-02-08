@@ -20,7 +20,8 @@ const DEFAULT_SETTINGS = {
 
 	authors: [],
 
-	hideCompletely: false
+	hideCompletely: false,
+  sideComments: false
 };
 
 init('en-US', i18n);
