@@ -1,4 +1,5 @@
-let settings, inited, $iframe, sideOpened = false;
+let settings, inited;
+let $iframe, $container, sideOpened = false;
 
 const waitUntil = condition => new Promise(resolve => {
   const interval = () => {
@@ -94,12 +95,6 @@ const processPost = $post => {
         openSideMenu(e.currentTarget.href);
       }
     }, true);
-
-    $post.addEventListener('mouseenter', () => {
-      if (settings.sideComments && !sideOpened) {
-        $iframe.src = $post.querySelector('a.comment')?.href;
-      }
-    });
   }
 
   let _tags = $tags.map($a => $a.innerText);
@@ -163,28 +158,48 @@ const processHeaderTags = async () => {
 }
 
 const createCommentContainer = () => {
-  if (document.querySelector('._9gag_unwanted_container')) return;
-  const $container = document.createElement('div');
+  if (document.querySelector('._9gag_unwanted_container') && $container) return;
+  $container = document.createElement('div');
   $container.classList.add('_9gag_unwanted_container');
+  $container.style.display = 'none';
 
   const $backdrop = document.createElement('div');
   $backdrop.classList.add('_9gag_unwanted_backdrop');
   $backdrop.addEventListener('click', () => {
+    $container.addEventListener('transitionend', () => {
+      $iframe.src = 'about:blank';
+      $container.style.display = 'none';
+    }, { once: true });
     $container.classList.remove('open');
+    document.body.classList.remove('side-comment-open');
     sideOpened = false;
   });
   $container.appendChild($backdrop);
-  
+
+  const $iframeContainer = document.createElement('div');
+  $iframeContainer.classList.add('iframe-container');
+
   $iframe = document.createElement('iframe');
-  $container.appendChild($iframe);
-  
+  $iframeContainer.appendChild($iframe)
+
+  $container.appendChild($iframeContainer);
+
   document.body.appendChild($container);
 }
 
 const openSideMenu = url => {
+  if (!url) return;
   sideOpened = true;
-  document.querySelector('._9gag_unwanted_container')?.classList.add('open');
+  document.body.classList.add('side-comment-open');
+  $container.removeAttribute('style');
   $iframe && ($iframe.src = url);
+  $iframe.addEventListener("load", ev => {
+    ev.target.contentDocument.body.classList.add('_9gag_unwanted_comment-side')
+    ev.target.contentDocument.body.style.overflowX = 'hidden';
+  });
+  requestAnimationFrame(() => {
+    document.querySelector('._9gag_unwanted_container')?.classList.add('open');
+  });
 }
 
 const update = async () => {

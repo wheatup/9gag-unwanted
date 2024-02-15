@@ -26,3 +26,7 @@ Install on [Chrome Web Store](https://chrome.google.com/webstore/detail/9gag-unw
 * 0.2.1
 
 > * Added a feature that you could open comments in a drawer instead of opening a new page.
+
+* 0.2.2
+
+> * Fixed several issues that related to side comments feature

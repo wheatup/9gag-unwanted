@@ -102,37 +102,48 @@
   height: 100%;
   top: 0;
   left: 0;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.5);
   opacity: 0;
   transition: opacity .3s;
 } 
 
-._9gag_unwanted_container iframe{
+._9gag_unwanted_container .iframe-container {
   position: absolute;
   z-index: 1;
   right: 0;
   top: -48px;
-  height: calc(100% + 48px);
-  width: 1060px;
+  bottom: 0;
+  width: 728px;
   max-width: calc(100vw - 20px);
-  background-color: white;
-  border: none;
+  background-color: var(--clrBg3);
   transform: translateX(100%);
-  transition: transform .3s;
   box-shadow: -4px 0px 4px rgba(0, 0, 0, 0.2);
-  overflow-x: hidden;
+  transition: transform .3s;
+  overflow: hidden;
 }
 
-._9gag_unwanted_container.open{
+._9gag_unwanted_container.open {
   pointer-events: all;
-  backdrop-filter: blur(4px);
 }
 
 ._9gag_unwanted_container.open ._9gag_unwanted_backdrop{
   opacity: 1;
 }
 
-._9gag_unwanted_container.open iframe{
-  transform: translateX(340px);
-  transform: translateX(clamp(0px, calc(100vw - 720px), 340px));
+._9gag_unwanted_container.open .iframe-container {
+  transform: translateX(0px);
+}
+
+._9gag_unwanted_container .iframe-container iframe {
+  border: none;
+  width: 100%;
+  height: 100%;
+}
+
+.side-comment-open {
+  overflow: hidden;
+}
+
+._9gag_unwanted_comment-side {
+  overflow-x: hidden;
 }
